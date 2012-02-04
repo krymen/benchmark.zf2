@@ -1,6 +1,6 @@
 <?php
 
-namespace Application;
+namespace KrymenCities;
 
 use Zend\Module\Manager,
     Zend\EventManager\StaticEventManager,
@@ -26,6 +26,7 @@ class Module implements AutoloaderProvider
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                    'Wowo'          => __DIR__ . '/model/src/Wowo',
                 ),
             ),
         );
@@ -55,19 +56,6 @@ class Module implements AutoloaderProvider
 
         $url    = $view->plugin('url');
         $url->setRouter($app->getRouter());
-
-        $view->plugin('headTitle')->setSeparator(' - ')
-                                  ->setAutoEscape(false)
-                                  ->append('ZF2 Skeleton Application');
-
-        $basePath = $app->getRequest()->detectBaseUrl();
-
-        $view->plugin('headLink')->appendStylesheet($basePath . 'css/bootstrap.min.css');
-
-        $html5js = '<script src="' . $basePath . 'js/html5.js"></script>';
-        $view->plugin('placeHolder')->__invoke('html5js')->set($html5js);
-        $favicon = '<link rel="shortcut icon" href="' . $basePath . 'images/favicon.ico">';
-        $view->plugin('placeHolder')->__invoke('favicon')->set($favicon);
 
         $this->view = $view;
         return $view;

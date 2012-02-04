@@ -4,9 +4,14 @@ return array(
     'di'                    => array(
         'instance' => array(
             'alias' => array(
-                'index' => 'Application\Controller\IndexController',
-                'error' => 'Application\Controller\ErrorController',
+                'default' => 'KrymenCities\Controller\DefaultController',
+                'error' => 'KrymenCities\Controller\ErrorController',
             ),
+            'KrymenCities\Controller\DefaultController' => array(
+                'parameters' => array(
+                    'em' => 'doctrine_em',
+                )
+            )
         ),
     ),
     'routes' => array(
@@ -19,7 +24,7 @@ return array(
                     'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                 ),
                 'defaults' => array(
-                    'controller' => 'index',
+                    'controller' => 'default',
                     'action'     => 'index',
                 ),
             ),
@@ -29,7 +34,7 @@ return array(
             'options' => array(
                 'route'    => '/',
                 'defaults' => array(
-                    'controller' => 'index',
+                    'controller' => 'default',
                     'action'     => 'index',
                 ),
             ),

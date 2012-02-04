@@ -4,7 +4,7 @@ return array(
         'ZfTwig',
         'DoctrineModule',
         'DoctrineORMModule',
-        'Application',
+        'KrymenCities',
     ),
     'module_listener_options' => array(
         'config_cache_enabled' => false,

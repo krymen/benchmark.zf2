@@ -1,0 +1,80 @@
+{% extends 'layouts/layout.twig' %}
+
+{% block content %}
+<div class="row">
+    <div class="span8">
+        <table>
+            <caption>Top 10 USA cities</caption>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Population</th>
+                    <th>Area</th>
+               </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>{{ topCitiesSummary.population|number_format }}</th>
+                    <th>{{ topCitiesSummary.landArea|number_format(1) }}</th>
+               </tr>
+           </tfoot>
+           <tbody>
+                {% for city in topCities %}
+                    <tr>
+                        <td>{{ city.rank }}</td>
+                        <td>{{ city.name }}</td>
+                        <td>{{ city.state.name }} ({{ city.state.shortcut }})</td>
+                        <td>{{ city.population|number_format }}</td>
+                        <td>{{ city.landArea|number_format(1) }}</td>
+                    </tr>
+                {% endfor %}
+           </tbody>
+        </table>
+    </div>
+    <div class="span8">
+        <table>
+            <caption>Top 10 USA states with biggest cities</caption>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>State</th>
+                    <th>Capital</th>
+                    <th>Cities number</th>
+                    <th>Population</th>
+                    <th>Biggest cities population</th>
+                    <th>Biggest cities area</th>
+               </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>{{ topStatesSummary.population|number_format }}</th>
+                    <th>{{ topStatesSummary.landArea|number_format(1) }}</th>
+               </tr>
+           </tfoot>
+           <tbody>
+                {% for state in topStates %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ state.name }}</td>
+                        <td>{{ state.capital }}</td>
+                        <td>{{ state.countCities }}</td>
+                        <td>{{ state.population|number_format }}</td>
+                        <td>{{ state.sumPopulation|number_format }}</td>
+                        <td>{{ state.sumLandArea|number_format(1) }}</td>
+                    </tr>
+                {% endfor %}
+           </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

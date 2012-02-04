@@ -10,6 +10,6 @@
 [submodule "vendor/DoctrineORMModule"]
 	path = vendor/DoctrineORMModule
 	url = git://github.com/doctrine/DoctrineORMModule.git
-[submodule "vendor/benchmark.model"]
-	path = vendor/benchmark.model
+[submodule "module/KrymenCities/model"]
+	path = module/KrymenCities/model
 	url = git://github.com/krymen/benchmark.model
