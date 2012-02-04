@@ -3,12 +3,13 @@
 namespace KrymenCities\Controller;
 
 use Zend\Mvc\Controller\ActionController;
+use Doctrine\ORM\EntityManager;
 
 class DefaultController extends ActionController
 {
     protected $em;
 
-    public function setEntityManager($em)
+    public function setEntityManager(EntityManager $em)
     {
         $this->em = $em;
     }
