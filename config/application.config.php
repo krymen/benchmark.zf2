@@ -3,7 +3,7 @@ return array(
     'modules' => array(
         'ZfTwig',
         'DoctrineModule',
-        'DoctrineMongoODMModule',
+        'DoctrineORMModule',
         'Application',
     ),
     'module_listener_options' => array(

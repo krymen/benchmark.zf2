@@ -1,10 +1,10 @@
  <?php
  /**
-  * Doctrine MongoDB Configuration
+  * Doctrine ORM Configuration
   *
   * If you have a ./configs/autoload/ directory set up for your project, you can 
   * drop this config file in it and change the values as you wish. This file is intended
-  * to be used with a standard Doctrine MongoDB setup. If you have something more advanced
+  * to be used with a standard Doctrine ORM setup. If you have something more advanced
   * you may override the Zend\Di configuration manually (see module.config.php).
   */
 $settings = array(
@@ -12,36 +12,40 @@ $settings = array(
     'use_annotations' => true,
     
     // if use_annotations (above) is set to true this file will be registered
-    'annotation_file' => __DIR__ . '/../../vendor/DoctrineMongoODMModule/vendor/mongodb-odm/lib/Doctrine/ODM/MongoDB/Mapping/Annotations/DoctrineAnnotations.php',
+    'annotation_file' => __DIR__ . '/../../vendor/DoctrineORMModule/vendor/doctrine-orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php',
     
-    // enables production mode by disabling generation of hydrators and proxies
-    'production' => false,
+    // enables production mode by disabling generation of proxies
+   'production' => false,
    
     // sets the cache to use for metadata: one of 'array', 'apc', or 'memcache'
-    'cache'      => 'array',
+    'cache' => 'array',
    
-    // only used if cache above is set to memcache
+    // only used if cache is set to memcache
     'memcache' => array( 
         'host' => '127.0.0.1',
         'port' => '11211'
     ),
-
-    'config' => array(
-        // set the default database to use (or not)
-        'default_db' => null
-    ), 
    
+    // connection parameters
     'connection' => array(
-        'server'  => '127.0.0.1',
-        'options' => array()
+        'driver'   => 'pdo_mysql',
+        'host'     => 'localhost',
+        'port'     => '3306', 
+        'user'     => 'username',
+        'password' => 'password',
+        'dbname'   => 'database',
     ),
     
+    // driver settings
     'driver' => array(
-        'class'     => 'Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver',
-        'namespace' => 'Application\Document',
-        'paths'     => array('module/Application/src/Application/Document'),
+        'class'     => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+        'namespace' => 'Application\Entity',
+        'paths'     => array('module/Application/src/Application/Entity')
     ),
     
+    // namespace aliases for annotations
+    'namespace_aliases' => array(
+    ),
 );
 
 /**
@@ -57,7 +61,7 @@ if (!in_array($settings['cache'], $cache)) {
 $settings['cache'] = 'doctrine_cache_' . $settings['cache'];
 
 return array(
-    'doctrine_mongoodm_module' => array(
+    'doctrine_orm_module' => array(
         'annotation_file' => $settings['annotation_file'],
         'use_annotations' => $settings['use_annotations'],
     ),
@@ -66,23 +70,28 @@ return array(
             'doctrine_memcache' => array(
                 'parameters' => $settings['memcache']
             ),
-            'mongo_config' => array(
+            'orm_config' => array(
                 'parameters' => array(
                     'opts' => array(
-                        'auto_generate_proxies'   => !$settings['production'],
-                        'auto_generate_hydrators' => !$settings['production'],
+                        'entity_namespaces' => $settings['namespace_aliases'],
+                        'auto_generate_proxies' => !$settings['production']
                     ),
-                    'metadataCache'  => $settings['cache'],
+                    'metadataCache' => $settings['cache'],
+                    'queryCache'    => $settings['cache'],
+                    'resultCache'   => $settings['cache'],
                 )
             ),
-            'mongo_connection' => array(
-                'parameters' => $settings['connection']
+            'orm_connection' => array(
+                'parameters' => array(
+                    'params' => $settings['connection']
+                ),
             ),
-            'mongo_driver_chain' => array(
+            'orm_driver_chain' => array(
                 'parameters' => array(
                     'drivers' => array(
                         'application_annotation_driver' => $settings['driver']
-                    )
+                    ),
+                    'cache' => $settings['cache']
                 )
             ),
         ),

@@ -7,6 +7,6 @@
 [submodule "vendor/DoctrineModule"]
 	path = vendor/DoctrineModule
 	url = git://github.com/doctrine/DoctrineModule.git
-[submodule "vendor/DoctrineMongoODMModule"]
-	path = vendor/DoctrineMongoODMModule
-	url = git://github.com/doctrine/DoctrineMongoODMModule.git
+[submodule "vendor/DoctrineORMModule"]
+	path = vendor/DoctrineORMModule
+	url = git://github.com/doctrine/DoctrineORMModule.git
