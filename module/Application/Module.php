@@ -35,30 +35,12 @@ class Module implements AutoloaderProvider
     {
         return include __DIR__ . '/config/module.config.php';
     }
-    
+
     public function initializeView($e)
     {
         $app          = $e->getParam('application');
         $locator      = $app->getLocator();
-        $config       = $e->getParam('config');
         $view         = $this->getView($app);
-        $viewListener = $this->getViewListener($view, $config);
-        $app->events()->attachAggregate($viewListener);
-        $events       = StaticEventManager::getInstance();
-        $viewListener->registerStaticListeners($events, $locator);
-    }
-
-    protected function getViewListener($view, $config)
-    {
-        if ($this->viewListener instanceof View\Listener) {
-            return $this->viewListener;
-        }
-
-        $viewListener       = new View\Listener($view, $config->layout);
-        $viewListener->setDisplayExceptionsFlag($config->display_exceptions);
-
-        $this->viewListener = $viewListener;
-        return $viewListener;
     }
 
     protected function getView($app)
@@ -69,6 +51,8 @@ class Module implements AutoloaderProvider
 
         $di     = $app->getLocator();
         $view   = $di->get('view');
+        $view->getEnvironment()->getLoader()->addPath(__DIR__ . '/views');
+
         $url    = $view->plugin('url');
         $url->setRouter($app->getRouter());
 

@@ -1,0 +1,48 @@
+{{  doctype() }}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {{ headTitle() }}
+    {{ headMeta() }}
+
+    <!--[if lt IE 9]>
+        {{ placeholder('html5js') }}
+
+    <![endif]-->
+
+    {{ headLink() }}
+    {{ headScript() }}
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
+
+    {{ placeholder('favicon') }}
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="fill">
+      <div class="container">
+        <a class="brand" href="{{ url('home') }}">ZF2 Skeleton Application</a>
+
+        <ul class="nav">
+          <li class="active"><a href="{{ url('home') }}">Home</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container">
+    {% block content %}{% endblock %}
+    <footer>
+      <p>&copy; 2006 - {{ 'now'|date('Y') }} by Zend Technologies Ltd. All rights reserved.</p>
+    </footer>
+
+  </div> <!-- /container -->
+
+</body>
+</html>
